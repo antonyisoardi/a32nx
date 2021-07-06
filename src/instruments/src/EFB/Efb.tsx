@@ -19,6 +19,7 @@ import { PerformanceReducer, performanceInitialState } from './Store/performance
 import { DispatchReducer, dispatchInitialState } from './Store/dispatch-reducer';
 import store from './Store';
 import ATC from './ATC/ATC';
+import { settingsInitialState, SettingsReducer } from './Store/settings-reducer';
 
 type TimeState = {
     currentTime: Date,
@@ -119,6 +120,7 @@ const Efb = () => {
 
     const [performanceState, performanceDispatch] = useReducer(PerformanceReducer, performanceInitialState);
     const [dispatchState, dispatchDispatch] = useReducer(DispatchReducer, dispatchInitialState);
+    const [settingsState, settingsDispatch] = useReducer(SettingsReducer, settingsInitialState);
     const [navigraph] = useState(() => new NavigraphClient());
     const [simbriefData, setSimbriefData] = useState<SimbriefData>(emptySimbriefData);
     const [simbriefUsername, setSimbriefUsername] = usePersistentProperty('SimbriefUsername');
@@ -230,7 +232,7 @@ const Efb = () => {
 
     return (
         <Provider store={store}>
-            <GlobalContext.Provider value={{ performanceState, performanceDispatch, dispatchState, dispatchDispatch }}>
+            <GlobalContext.Provider value={{ performanceState, performanceDispatch, dispatchState, dispatchDispatch, settingsState, settingsDispatch }}>
                 <NavigraphContext.Provider value={navigraph}>
                     <div className="flex flex-col">
                         <StatusBar initTime={timeState.initTime} updateCurrentTime={updateCurrentTime} updateTimeSinceStart={updateTimeSinceStart} />
